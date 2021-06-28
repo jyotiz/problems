@@ -1,0 +1,44 @@
+import java.util.*;
+public class Perm{
+
+    
+   public ArrayList<String> getPerms(String str){
+       
+       if(str == null) return null;
+       ArrayList<String> perm = new ArrayList<String>();
+       if(str.length() == 0){
+           perm.add("");
+           return perm;
+       }
+       
+       char first = str.charAt(0);
+       String remaining = str.substring(1);
+       ArrayList<String> remainPerm = getPerms(remaining);
+       for(String word: remainPerm){
+           for(int j =0; j<=word.length(); j++){
+               String s = insertCharAt(word,first,j);
+               perm.add(s);
+           }
+       }
+       
+       return perm;
+   }
+   
+   public String insertCharAt(String word, char first, int i){
+       
+       String start = word.substring(0,i);
+       String end = word.substring(i);
+       return start+first+end;
+   }
+      
+     public static void main(String []args){
+      
+     Perm myPerm = new Perm();
+      String str = "adc";
+     ArrayList<String> result =  myPerm.getPerms(str);
+      System.out.println(result);   
+      
+    
+  
+     }
+}
