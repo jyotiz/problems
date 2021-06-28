@@ -1,0 +1,100 @@
+import java.util.*;
+public class BST{
+     
+     class Node{
+    private int n;
+    private Node left;
+    private Node right;
+    public Node(int n){
+        this.n = n;
+        this.left = null; 
+        this.right = null;
+    }
+    
+}
+
+Node root;
+public BST(){
+    root = null;
+}
+
+public void insert(int key){
+    root = insertRecursive(root, key);
+}
+
+private Node insertRecursive(Node root, int val){
+    
+    if(root == null){
+        root = new Node(val);
+        return root;
+    }
+   
+        if(val < root.n){
+            root.left = insertRecursive( root.left, val);
+        }
+        else if(val > root.n){
+            root.right = insertRecursive( root.right, val);
+        }
+        return root;
+    }
+    
+
+
+public void inOrder(){
+    inOrderRecursive(root);
+}
+
+public void postOrder(){
+    postOrderRecursive(root);
+}
+
+public void preOrder(){
+    preOrderRecursive(root);
+}
+
+private void inOrderRecursive(Node root){
+    if(root != null){
+        inOrderRecursive(root.left);
+         System.out.println(root.n);
+       inOrderRecursive(root.right);
+    
+}
+}
+
+private void postOrderRecursive(Node root){
+    
+    if(root != null){
+        postOrderRecursive(root.left);
+        postOrderRecursive(root.right);
+        System.out.println(root.n);
+        
+    }
+}
+
+private void preOrderRecursive(Node root){
+    
+    if(root != null){
+        
+        System.out.println(root.n);
+        preOrderRecursive(root.left);
+        preOrderRecursive(root.right);
+        
+    }
+}
+
+
+     public static void main(String []args){
+      
+    BST bst = new BST();
+     
+    bst.insert(2);
+    bst.insert(1);
+    bst.insert(3);
+    bst.inOrder();
+    bst.preOrder();
+    bst.postOrder();
+      
+    
+  
+     }
+}
