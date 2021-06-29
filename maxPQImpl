@@ -1,0 +1,57 @@
+import java.util.*;
+public class MaxPQ<Key extends Comparable<Key>>{
+ 
+ private int n;
+ private Key[] pq;
+ 
+ public MaxPQ(int cap){
+     pq =  (Key[])new Comparable[cap];
+ }
+ 
+ 
+ public boolean isEmpty(){
+     return n == 0;
+ }
+ 
+ public void insert(Key x){
+     pq[n++] = x;
+ }
+ 
+ public Key delMax(){
+     int max = 0;
+     
+     for(int i = 0; i<n;i++){
+         if(less(max,i)) max = i;
+     }
+     exch(max,n-1);
+     return pq[--n];
+ }
+ 
+ private boolean less(int x , int y){
+  return pq[x].compareTo(pq[y]) < 0;
+    }
+ 
+ private void exch(int x, int y){
+     Key tmp;
+     tmp = pq[x];
+     pq[x] = pq[y];
+     pq[y] = tmp;
+ }
+
+    public static void main(String []args){
+   MaxPQ<Integer> pq = new MaxPQ<Integer>(15);
+        pq.insert(5);
+        pq.insert(3);
+        pq.insert(17);
+        pq.insert(10);
+        pq.insert(19);
+       
+ 
+        
+      int max = pq.delMax();
+      System.out.println("The max val is " + max);
+      
+    
+  
+     }
+}
