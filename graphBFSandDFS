@@ -1,0 +1,128 @@
+import java.util.*;
+
+public class Graph{
+    
+  List<List<Integer>> adj = new ArrayList<>();
+  private final int v;
+  public Graph(int v){
+      this.v  = v;
+     for (int i = 0; i <= v; i++) {
+            adj.add(i, new ArrayList<>());
+        }
+}
+
+public void addEdge(int v, int w){
+    adj.get(v).add(w);
+    adj.get(w).add(v);
+}
+
+public Iterable<Integer> adj(int v){
+    return adj.get(v);
+}
+
+public int vertices(){
+    return v;
+}
+
+public static void main(String args[]){
+    Graph g = new Graph(6);
+    
+    g.addEdge(1,2);
+    g.addEdge(1,5);
+    g.addEdge(1,6);
+    g.addEdge(2,5);
+    g.addEdge(2,4);
+    g.addEdge(3,2);
+    g.addEdge(4,3);
+    g.addEdge(4,5);
+    
+    DFS d = new DFS(g, 1);
+    d.printPath(4);
+    
+    System.out.println("BFS is  ");
+    BFS b = new BFS(g,1);
+    
+    }
+}
+
+class DFS{
+    
+    private int[] edgeTo;
+    private boolean[] marked;
+    private int s;
+    
+    public DFS(Graph g, int s){
+        int v = g.vertices();
+        marked = new boolean[v+1];
+        edgeTo = new int[v+1];
+        this.s = s;
+        dfs(g,s);
+    }
+    
+    private void dfs(Graph g, int v){
+     
+        marked[v] = true;
+        System.out.println(v);
+        for(int w : g.adj(v)){
+         
+            if(!marked[w]){
+            dfs(g,w);
+            edgeTo[w] = v;
+           
+            }
+        }
+    }
+    
+    public void printPath(int s){
+        System.out.println("Path to " + s + "is.....");
+        while( s != 0 ){
+       
+        s = edgeTo[s];
+        System.out.println(s + "-");
+        
+        }
+        
+    }
+}
+
+class BFS{
+    
+    private boolean[] marked;
+    private int s;
+    private int[] edgeTo;
+   
+    
+    
+    public BFS(Graph g, int s){
+        this.s = s;
+        int v  =g.vertices();
+        marked = new boolean[v+1];
+        edgeTo = new int[v+1];
+        bfs(g,s);
+    }
+    
+    private void bfs(Graph g, int s){
+        Queue<Integer> q = new LinkedList<Integer>();
+        marked[s] = true;
+        q.add(s);
+        
+        while(! q.isEmpty()){
+            int v = q.remove();
+            System.out.println(v);
+            for(int w : g.adj(v)){
+                if(!marked[w]){
+                    q.add(w);
+                    marked[w] = true;
+                    edgeTo[w] = v;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
