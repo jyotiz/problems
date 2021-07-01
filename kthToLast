@@ -1,0 +1,89 @@
+public class LL{
+
+
+    class Node{
+        private int data;
+        private Node next;
+        public Node( int data ){
+            this.data = data;
+            this.next = null;
+        }
+    }
+    
+    Node head;
+    public void insert(int val){
+         Node newNode = new Node(val);
+        if(this.head == null){
+            head = newNode;
+        }
+        else{
+            Node curr = this.head;
+            
+            while(curr.next != null){
+                curr = curr.next;
+            }
+            curr.next = newNode;
+            
+            
+        }
+    }
+    
+    public int nthToLast(int k){
+        if(this.head == null){
+            return 0;
+        }
+        
+        Node p1 = this.head;
+        Node p2 = this.head;
+        for(int i = 1;i <= k;i++){
+            p2 = p2.next;
+        }
+        
+        while(p2 != null){
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        
+        return p1.data;
+        
+    }
+    
+    
+    
+    public int recursiveLast(int k){
+        
+        return recursiveLast(this.head, k);
+        
+    }
+    
+    private int recursiveLast(Node head, int k){
+        
+        if(head == null){
+            return 0;
+        }
+        
+        int index = recursiveLast(head.next, k) + 1;
+        if(index == k){
+            System.out.println("Data is " + head.data);
+        }
+        return index;
+    }
+    
+     public static void main(String []args){
+         
+         LL list = new LL();
+         list.insert(1);
+         list.insert(4);
+         list.insert(6);
+         list.insert(7);
+         list.insert(2);
+         list.insert(9);
+         list.insert(44);
+         list.insert(22);
+         
+         int result = list.nthToLast(3);
+         int result2 = list.recursiveLast(3);
+        System.out.println(result);
+       //  System.out.println(result2);
+     }
+}
