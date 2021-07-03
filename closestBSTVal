@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int closestValue(TreeNode root, double target) {
+        
+        //Time complexity O(H) - > h is height of tree
+  /*        int val, closest = root.val;
+    while (root != null) {
+      val = root.val;
+      closest = Math.abs(val - target) < Math.abs(closest - target) ? val : closest;
+      root =  target < root.val ? root.left : root.right;
+    }
+    return closest;*/
+        
+        //O(N)
+        List<Integer> result = new ArrayList();
+        inOrder(root,result);
+        return Collections.min(result, new Comparator<Integer>(){
+            @Override
+            public int compare(Integer o1, Integer o2){
+                return Math.abs(o1 - target) < Math.abs(o2 - target) ? -1 : 1;
+            }
+        });
+        
+        
+    }
+    
+    public void inOrder(TreeNode root, List<Integer> result){
+        if(root == null) return;
+        inOrder(root.left, result);
+        result.add(root.val);
+        inOrder(root.right, result);     
+    }
+}
