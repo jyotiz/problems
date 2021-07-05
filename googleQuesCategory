@@ -1,0 +1,81 @@
+import java.util.*;
+public class Category{
+
+    ArrayList<Category> parents = new ArrayList<Category>();
+    ArrayList<Category> children = new ArrayList<Category>();
+    private int id;
+    
+    public Category(int id){
+        this.id = id;
+    }
+    
+    public void addParents(Category cat){
+        this.parents.add(cat);
+    }
+    
+
+    public static void main(String args[]){
+        
+             Category cat1 = new Category(1);
+             Category cat2 = new Category(2);
+             Category cat3 = new Category(3);
+             Category cat4 = new Category(4);
+             Category cat5 = new Category(5);
+             Category cat6 = new Category(6);
+             cat2.addParents(cat1);
+             cat3.addParents(cat1);
+             cat4.addParents(cat2);
+             cat5.addParents(cat2);
+             cat6.addParents(cat2);
+             cat6.addParents(cat3);
+             
+             Item item1 = new Item("tel",cat1);
+             Item item2 = new Item("mob",cat2);
+             Item item3 = new Item("speaker",cat3);
+             Item item4 = new Item("cell",cat4);
+             Item item5 = new Item("mop",cat5);
+             Item item6 = new Item("bo",cat6);
+             
+             ArrayList<Category> result = item5.getCategories();
+             for(int i = 0; i < result.size(); i++){
+                 System.out.println(result.get(i).id);
+             }
+             
+             
+             
+             
+    }
+    
+}
+
+ class Item{
+    
+    Category category;
+    String name;
+
+    
+    public Item(String name, Category cat){
+        this.name = name;
+        this.category = cat;
+    }
+    
+    public ArrayList<Category> getCategories(){
+        ArrayList<Category> result = new ArrayList();
+        return getCategories(category, result);
+        
+    }
+    
+    private  ArrayList<Category> getCategories(Category category, ArrayList<Category> result){
+        if(category.parents.isEmpty()){
+            result.add(category);
+            return result;
+        }else{
+            result.add(category);
+            for(Category parent : category.parents){
+              result = getCategories(parent, result);
+            }
+            return result;
+        }
+        
+    }
+}
