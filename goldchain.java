@@ -1,5 +1,4 @@
-// Online Java Compiler
-// Use this editor to write, compile and run your Java code online
+//Given a gold chain of links of integer weights, give one link to charity and see if remaining chain can be equally divided between you and your friend
 import java.util.*;
 public class HelloWorld {
   /* Online Java Compiler and Editor */
